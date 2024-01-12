@@ -1,3 +1,4 @@
+import FriendRequestSidebarOptions from '@/components/FriendRequestSidebarOptions';
 import { Icon, Icons } from '@/components/Icons';
 import SignOutButton from '@/components/SignOutButton';
 import { authOptions } from '@/lib/auth';
@@ -62,6 +63,10 @@ const Layout = async({children}: LayoutProps) => {
                             </li>
                             )
                         })}</ul>
+                    </li>
+
+                    <li>
+                        <FriendRequestSidebarOptions/>
                     </li>
 
                     <li className='-mx-6 mt-auto flex items-certer'>
