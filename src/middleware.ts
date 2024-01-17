@@ -6,9 +6,12 @@ import { NextResponse } from 'next/server'
 
 export default withAuth(
   async function middleware(req) {
+
+    //Determine the path the user is currently in
     const pathname = req.nextUrl.pathname
 
-    // Manage route protection
+    //Manage route protection
+    //getToken automatically checks an decrypts JSON web token
     const isAuth = await getToken({ req })
     const isLoginPage = pathname.startsWith('/login')
 
@@ -19,12 +22,15 @@ export default withAuth(
 
     if (isLoginPage) {
       if (isAuth) {
+        //Redirect to the base URL- the dashboard
         return NextResponse.redirect(new URL('/dashboard', req.url))
       }
 
+      //If not authenticated
       return NextResponse.next()
     }
 
+    //If not authenticated and accessing senstive route
     if (!isAuth && isAccessingSensitiveRoute) {
       return NextResponse.redirect(new URL('/login', req.url))
     }
@@ -42,6 +48,7 @@ export default withAuth(
   }
 )
 
+//Determines in which routes this middleware runs in
 export const config = {
   matchter: ['/', '/login', '/dashboard/:path*'],
 }
