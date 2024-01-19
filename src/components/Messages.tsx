@@ -2,9 +2,12 @@
 
 import { cn } from "@/lib/utils";
 import { Message } from "@/lib/validations/message";
+import { time, timeStamp } from "console";
+import { format } from "date-fns";
 import Image from "next/image";
 
 import {FC, useRef, useState} from "react";
+import { number } from "zod";
 
 interface MessagesProps {
     initialMessages: Message[]
@@ -18,6 +21,9 @@ const Messages: FC<MessagesProps> = ({initialMessages, sessionId}) => {
 
     const scrollDownRef = useRef<HTMLDivElement | null>(null)
     
+    const formatTimestamp = (timestamp : number) => {
+        return format(timestamp, 'HH:mm')
+    }
 
 
     return (
@@ -44,6 +50,9 @@ const Messages: FC<MessagesProps> = ({initialMessages, sessionId}) => {
                                     'rounded-bl-none':!hasNextMessageFromSameUser && !isCurrentUser,
                                     })}>
                                         {message.text}{' '}
+                                        <span className='ml-2 text-xs text-gray-400'>
+                                            {formatTimestamp(message.timestamp)}
+                                        </span>
                                 </span>
                             </div>
                         </div>
