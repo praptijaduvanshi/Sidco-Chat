@@ -22,15 +22,15 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
         setIsLoading(true)
 
         try {
-            await axios.post('/api/message/send', { text: input, chatId })
-            //After posting message, clean message area
-            setInput('')
-            //Bring focus back to message area after sending a message
-            textareaRef.current?.focus()
+          await axios.post('/api/message/send', { text: input, chatId })
+          //After posting message, clean message area
+          setInput('')
+          //Bring focus back to message area after sending a message
+          textareaRef.current?.focus()
         } catch {
-            toast.error('Something went wrong. Please try again later.')
+          toast.error('Something went wrong. Please try again later.')
         } finally {
-            setIsLoading(false)
+          setIsLoading(false)
         }
     }
 

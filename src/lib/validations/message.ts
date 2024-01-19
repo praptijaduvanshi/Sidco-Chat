@@ -1,13 +1,12 @@
 import { z } from 'zod'
 
-export const messageSchema = z.object({
+export const messageValidator = z.object({
   id: z.string(),
   senderId: z.string(),
   text: z.string(),
   timestamp: z.number(),
 })
 
-//Validate array of messages
-export const messageArrayValidator = z.array(messageSchema)
+export const messageArrayValidator = z.array(messageValidator)
 
-export type Message = z.infer<typeof messageSchema>
+export type Message = z.infer<typeof messageValidator>
