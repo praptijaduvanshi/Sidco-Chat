@@ -12,10 +12,12 @@ import { number } from "zod";
 interface MessagesProps {
     initialMessages: Message[]
     sessionId: string
+    sessionImg: string | null | undefined
+    chatPartner: User
 
 }
 
-const Messages: FC<MessagesProps> = ({initialMessages, sessionId}) => {
+const Messages: FC<MessagesProps> = ({initialMessages, sessionId, sessionImg, chatPartner}) => {
     //When user sends message, showing directly to user
     const [messages, setMessages] = useState<Message[]>(initialMessages)
 
@@ -55,6 +57,23 @@ const Messages: FC<MessagesProps> = ({initialMessages, sessionId}) => {
                                         </span>
                                 </span>
                             </div>
+
+                            <div
+                            className={cn('relative w-6 h-6', {
+                                'order-2': isCurrentUser,
+                                'order-1': !isCurrentUser,
+                                invisible: hasNextMessageFromSameUser,
+                                })}>
+                                    <Image fill
+                                    src={
+                                        isCurrentUser ? (sessionImg as string) : chatPartner.image
+                                    }
+                                    alt='Profile picture'
+                                    referrerPolicy='no-referrer'
+                                    className='rounded-full'
+                                    />
+                             </div>
+
                         </div>
                     </div>
                 )
