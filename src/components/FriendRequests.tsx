@@ -1,6 +1,8 @@
 'use client'
 
 
+import { pusherClient } from '@/lib/pusher'
+import { toPusherKey } from '@/lib/utils'
 import axios from 'axios'
 import { Check, UserPlus, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -20,6 +22,32 @@ const FriendRequests: FC<FriendRequestsProps> = ({
     incomingFriendRequests
   )
 
+  useEffect(() => {
+    //subscribe to incoming friend requests-->server 
+    pusherClient.subscribe(
+      toPusherKey(`user:${sessionId}:incoming_friend_requests`)
+      )
+      console.log("listening to ", `user:${sessionId}:incoming_friend_requests`)
+      
+      const friendRequestHandler = ({
+        senderId,
+        senderEmail,
+      }: IncomingFriendRequest) => {
+        console.log("function got called")
+        setFriendRequests((prev) => [...prev, { senderId, senderEmail }])
+      }
+      
+      //Trigger function in frontend called friendRequestHandler
+      pusherClient.bind('incoming_friend_requests', friendRequestHandler)
+      
+      //Unsubscribe and unbind
+      return () => {
+        pusherClient.unsubscribe(
+          toPusherKey(`user:${sessionId}:incoming_friend_requests`)
+          )
+          pusherClient.unbind('incoming_friend_requests', friendRequestHandler)
+        }
+    }, [sessionId])
 
   const acceptFriend = async (senderId: string) => {
     await axios.post('/api/friends/accept', { id: senderId })
