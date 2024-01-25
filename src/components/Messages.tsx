@@ -6,7 +6,6 @@ import { Message } from "@/lib/validations/message";
 import { time, timeStamp } from "console";
 import { format } from "date-fns";
 import Image from "next/image";
-
 import {FC, useEffect, useRef, useState} from "react";
 import { number } from "zod";
 
@@ -25,11 +24,13 @@ const Messages: FC<MessagesProps> = ({initialMessages, sessionId, sessionImg, ch
     //State containing the initial messages, when real time changes occure we add it to state to display in real time 
     useEffect(() => {
         pusherClient.subscribe(
-          toPusherKey(`chat:${chatId}`)
+            //Subscribe to chat
+            toPusherKey(`chat:${chatId}`)
         )
-    
+   
+        //Get access to what they were prev, then put in beginning on array
         const messageHandler = (message: Message) => {
-          setMessages((prev) => [message, ...prev])
+            setMessages((prev) => [message, ...prev])
         }
     
         pusherClient.bind('incoming-message', messageHandler)
