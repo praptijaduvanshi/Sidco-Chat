@@ -1,13 +1,20 @@
 'use client'
 
-import { chatHrefConstructor } from "@/lib/utils";
+import { pusherClient } from "@/lib/pusher";
+import { chatHrefConstructor, toPusherKey } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import {FC, useEffect, useReducer, useState} from "react";
+import { toast } from 'react-hot-toast'
 
 interface SidebarChatListProps {
     friends: User[]
     sessionId: string
 }
+
+interface ExtendedMessage extends Message {
+    senderImg: string
+    senderName: string
+  }
 
 const SidebarChatList: FC<SidebarChatListProps> = ({friends, sessionId}) => {
     const router = useRouter()
@@ -15,6 +22,9 @@ const SidebarChatList: FC<SidebarChatListProps> = ({friends, sessionId}) => {
     //Show messages only when user is online
     const [unseenMessages, setUnseenMessages] = useState<Message[]>([])
     const [activeChats, setActiveChats] = useState<User[]>(friends)
+
+    //When chat is not open --> send pop-up notification
+
 
     useEffect(() => {
         if (pathname?.includes('chat')) {
