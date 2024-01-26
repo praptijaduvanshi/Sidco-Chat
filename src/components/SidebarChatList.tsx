@@ -5,6 +5,7 @@ import { chatHrefConstructor, toPusherKey } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import {FC, useEffect, useReducer, useState} from "react";
 import { toast } from 'react-hot-toast'
+import UnseenChatToast from "./UnseenChatToast";
 
 interface SidebarChatListProps {
     friends: User[]
@@ -14,7 +15,7 @@ interface SidebarChatListProps {
 interface ExtendedMessage extends Message {
     senderImg: string
     senderName: string
-  }
+}
 
 const SidebarChatList: FC<SidebarChatListProps> = ({friends, sessionId}) => {
     const router = useRouter()
@@ -24,6 +25,52 @@ const SidebarChatList: FC<SidebarChatListProps> = ({friends, sessionId}) => {
     const [activeChats, setActiveChats] = useState<User[]>(friends)
 
     //When chat is not open --> send pop-up notification
+    useEffect(() => {
+        pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`))
+        pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`))
+   
+        //Refresh the page
+        const newFriendHandler = (newFriend: User) => {
+          console.log("received new user", newFriend)
+          setActiveChats((prev) => [...prev, newFriend])
+        }
+
+        //Get access to contents on message and push through toast notification
+        const chatHandler = (message: ExtendedMessage) => {
+          const shouldNotify =
+            pathname !==
+            `/dashboard/chat/${chatHrefConstructor(sessionId, message.senderId)}`
+            //No need to notify, because in chat
+            if (!shouldNotify) return
+    
+            //Should be notified via toast notification
+            toast.custom((t) => (
+                <UnseenChatToast
+                t={t}
+                sessionId={sessionId}
+                senderId={message.senderId}
+                senderImg={message.senderImg}
+                senderMessage={message.text}
+                senderName={message.senderName}
+                />
+            ))
+        
+            setUnseenMessages((prev) => [...prev, message])
+        }
+
+        //Bind event to a function
+        pusherClient.bind('new_message', chatHandler)
+        pusherClient.bind('new_friend', newFriendHandler)
+    
+        return () => {
+          pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:chats`))
+          pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`))
+    
+          pusherClient.unbind('new_message', chatHandler)
+          pusherClient.unbind('new_friend', newFriendHandler)
+        }
+      }, [pathname, sessionId, router])
+    
 
 
     useEffect(() => {
