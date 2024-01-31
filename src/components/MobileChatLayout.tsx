@@ -26,6 +26,7 @@ const MobileChatLayout: FC<MobileChatLayoutProps> = ({ friends, session, sidebar
 
   const pathname = usePathname()
 
+  //To access 'Add friend' and 'Friend Requests' path
   useEffect(() => {
     setOpen(false)
   }, [pathname])
