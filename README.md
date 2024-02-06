@@ -2,6 +2,26 @@
 
 A real-time messaging applcation using TypeScript, Next.js, TailwindCSS, Upstash and Pusher. This is a [Next.js ](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## About
+
+Log-in page:
+![Signin](https://github.com/praptijaduvanshi/Sidco-Chat/assets/67221447/f659427d-9b17-4ea2-84c1-32822ae61080)
+
+To add a friend in real-time:
+![Add friend](https://github.com/praptijaduvanshi/Sidco-Chat/assets/67221447/97e94597-cfef-4c29-aeeb-cf6a7a687524)
+
+The chat page in real-time (and toast notifications for when chat is not open:
+![Chat page](https://github.com/praptijaduvanshi/Sidco-Chat/assets/67221447/105180fb-f387-4b2b-b7e4-26a65748ec35)
+
+The dashboard to show recent chats:
+![Dashboard](https://github.com/praptijaduvanshi/Sidco-Chat/assets/67221447/60e2f8a3-3bcd-4183-91b8-7db36e924a04)
+
+Improvements:
+- Emoji keyboard
+- Share files and images
+- Create group chats
+- Improve dashboard
+
 ## Getting Started
 
 First, run the development server:
