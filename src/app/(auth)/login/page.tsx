@@ -23,12 +23,12 @@ const Page: FC<pageProps> = ({}) => {
             setIsLoading(false)
         }
     } 
-    return <>
+    return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 Jg:px-8">
         <div className="w-full flex flex-col items-center max-w-md space-y-8">
             <div className="flex flex-col items-center gap-8">
-                Sidco
-                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in with you Google account</h2>
+                <h1 className="font-bold mt-6 text-center text-3xl font-bold tracking-tight text-indigo-500">Sidco</h1>
+                <h2 className="mt-6 text-center text-xl font-bold tracking-tight text-gray-900">Sign in with your Google account</h2>
             </div>
             <Button isLoading={isLoading} type="button" className="max-w-sm mx-auto w-full" onClick={loginWithGoogle}>
                 {isLoading ? null : (
@@ -64,7 +64,7 @@ const Page: FC<pageProps> = ({}) => {
             </Button>
         </div>
     </div>
-    </>
+    )
 }
 
 export default Page
