@@ -1,16 +1,16 @@
 interface User {
-    name: string
-    email: string
-    image: string
-    id: string
-  }
+      name: string
+      email: string
+      image: string
+      id: string
+    }
   
-  interface Chat {
+interface Chat {
     id: string
     messages: Message[]
   }
   
-  interface Message {
+interface Message {
     id: string
     senderId: string
     receiverId: string
@@ -18,7 +18,7 @@ interface User {
     timestamp: number
   }
   
-  interface FriendRequest {
+interface FriendRequest {
     id: string
     senderId: string
     receiverId: string
