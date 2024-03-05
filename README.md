@@ -8,7 +8,8 @@ Log-in page:
 ![Signin](https://github.com/praptijaduvanshi/Sidco-Chat/assets/67221447/f659427d-9b17-4ea2-84c1-32822ae61080)
 
 To add a friend in real-time:
-![Add friend](https://github.com/praptijaduvanshi/Sidco-Chat/assets/67221447/97e94597-cfef-4c29-aeeb-cf6a7a687524)
+![Add a Friend](https://github.com/praptijaduvanshi/Sidco-Chat/assets/67221447/e797dda7-0a46-47bb-b67e-04765a5d5f55)
+![Friend Request](https://github.com/praptijaduvanshi/Sidco-Chat/assets/67221447/ddd60f0c-4a2c-4a99-8018-f25d343f7752)
 
 The chat page in real-time (and toast notifications for when chat is not open:
 ![Chat page](https://github.com/praptijaduvanshi/Sidco-Chat/assets/67221447/105180fb-f387-4b2b-b7e4-26a65748ec35)
